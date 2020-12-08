@@ -4,12 +4,12 @@ import { composeWithDevTools } from "redux-devtools-extension"
 
 import rootReducer from "./Reducers"
 
-import craeteSagaMiddleware from "redux-saga" //引入saga中间件
+import createSagaMiddleware from "redux-saga" //引入saga中间件
 
-let sagaMiddleware = craeteSagaMiddleware()
+let sagaMiddleware = createSagaMiddleware()
 
-import helloSaga from "./Sagas/Product"
+import rootSaga from "./Sagas"
 
 export default createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
 
-sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(rootSaga)
