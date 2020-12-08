@@ -1,0 +1,40 @@
+<script>
+    function asyncFn() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ state: 200, msg: "登录成功" })
+            }, 2000)
+        })
+    }
+    function asyncFn2() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ state: 200, msg: "获取列表成功" })
+            }, 2000)
+        })
+    }
+
+    // async function getData() {
+    //     let data = await asyncFn()
+    //     console.log(data);
+    // }
+
+    // getData()
+    // 代码遇到yield之后会暂停 
+    function* getData() {
+        const val1 = yield asyncFn()
+        console.log(val1);
+        const val2 = yield asyncFn2()
+        console.log(val2);
+    }
+
+    let it = getData() //返回generator迭代器
+    //将指针指向第一个yield数据结构的成员
+    it.next().value.then(res => {
+        // console.log(res);
+        it.next(res).value.then(res => {
+            // console.log(res);
+            it.next(res)
+        })
+    })
+</script>
